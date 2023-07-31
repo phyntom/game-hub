@@ -1,9 +1,17 @@
 import { MdOutlineReviews, MdOutlineStar } from 'react-icons/md'
-import { Game } from '../model'
+import { Game, Platform } from '../model'
+import { PlatformIcons } from './PlatformIcons'
+import { getOptimizedImage } from '../utils/getOptimizedImage'
 
 type GameCardProps = Pick<
     Game,
-    'name' | 'genres' | 'background_image' | 'rating' | 'reviews_count' | 'released'
+    | 'name'
+    | 'genres'
+    | 'background_image'
+    | 'rating'
+    | 'reviews_count'
+    | 'released'
+    | 'parent_platforms'
 >
 
 export const GameCard = ({
@@ -13,18 +21,23 @@ export const GameCard = ({
     rating,
     reviews_count,
     released,
+    parent_platforms,
 }: GameCardProps) => {
+    const platforms: Array<Platform> = parent_platforms?.map(({ platform }) => platform)
     return (
-        <div className='bg-white dark:bg-slate-800 rounded-2xl shadow-2xl'>
+        <div className='bg-white dark:bg-slate-800 rounded-2xl shadow-2xl overflow-hidden'>
             <img
                 className='lg:h-48 md:h-36 w-full object-cover rounded-t-2xl'
-                src={background_image}
+                src={getOptimizedImage(background_image)}
                 alt='cover image'
             />
-            <div>
-                <h1 className='text-slate-900 px-2 dark:text-white mt-5 text-xl md:text-2xl font-light md:font-medium tracking-tight'>
+            <div className='text-slate-900 dark:text-white m-2 px-2'>
+                <h1 className='text-xl md:text-2xl font-light md:font-medium tracking-tight'>
                     {name}
                 </h1>
+            </div>
+            <div className='flex m-2 px-2 gap-1 text-slate-500 dark:text-gray-500'>
+                <PlatformIcons platforms={platforms} />
             </div>
             <div className='flex justify-between m-2 px-2'>
                 <span>
