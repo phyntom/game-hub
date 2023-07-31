@@ -1,19 +1,19 @@
 import { useEffect, useState } from 'react'
 import { createApiService } from '../service/apiService'
-import { Game } from '../model'
+import { Genre } from '../model'
 import { CanceledError } from 'axios'
 
 export function useGenres() {
-    const [games, setGames] = useState<Game[]>([])
+    const [genres, setGenres] = useState<Genre[]>([])
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const [error, setError] = useState('')
     useEffect(() => {
         const abortController = new AbortController()
         setIsLoading(true)
         createApiService()
-            .getAll('/games', abortController.signal)
+            .getAll('/genres', abortController.signal)
             .then((response) => {
-                setGames(response)
+                setGenres(response)
                 setIsLoading(false)
             })
             .catch((err) => {
@@ -22,5 +22,5 @@ export function useGenres() {
                 console.error(err)
             })
     }, [])
-    return { games, error, isLoading }
+    return { genres, error, isLoading }
 }
