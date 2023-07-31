@@ -2,8 +2,8 @@ import { MdOutlineStar } from 'react-icons/md'
 
 export const GameCardSkeleton = () => {
     return (
-        <div className='bg-white dark:bg-slate-800 rounded-2xl shadow-2xl overflow-hidden'>
-            <div className='lg:h-48 md:h-36 px-2 bg-gray-100 dark:bg-slate-700 rounded-t-2xl' />
+        <div className='bg-white dark:bg-slate-800 rounded-2xl shadow-2xl overflow-hidden w-full'>
+            <div className='lg:h-60 md:h-48 px-2 bg-gray-100 dark:bg-slate-700 rounded-t-2xl' />
             <div className=' bg-gray-100 m-2 px-2 h-8 w-auto dark:bg-slate-700'></div>
             <div className='flex m-2 px-2 gap-1 text-slate-500'>
                 <div className='h-7 w-7 bg-gray-100 dark:bg-slate-700'></div>

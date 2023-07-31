@@ -1,4 +1,4 @@
-import { MdOutlineReviews, MdOutlineStar } from 'react-icons/md'
+import { MdOutlineReviews } from 'react-icons/md'
 import { Game, Platform } from '../model'
 import { PlatformIcons } from './PlatformIcons'
 import { getOptimizedImage } from '../utils/getOptimizedImage'
@@ -27,12 +27,12 @@ export const GameCard = ({
     return (
         <div className='bg-white dark:bg-slate-800 rounded-2xl shadow-2xl overflow-hidden'>
             <img
-                className='lg:h-48 md:h-36 w-full object-cover rounded-t-2xl'
+                className='lg:h-60 md:h-48 w-full object-cover rounded-t-2xl'
                 src={getOptimizedImage(background_image)}
                 alt='cover image'
             />
             <div className='text-slate-900 dark:text-white m-2 px-2'>
-                <h1 className='text-xl md:text-2xl font-light md:font-medium tracking-tight'>
+                <h1 className='text-lg font-medium md:text-lg md:font-semibold lg:text-xl lg:font-bold tracking-tight'>
                     {name}
                 </h1>
             </div>
@@ -40,10 +40,7 @@ export const GameCard = ({
                 <PlatformIcons platforms={platforms} />
             </div>
             <div className='flex justify-between m-2 px-2'>
-                <span>
-                    <MdOutlineStar />
-                    {rating}
-                </span>
+                <span>{rating}</span>
                 <div className='flex items-center'>
                     <span className='mr-1'>
                         <MdOutlineReviews />
@@ -51,15 +48,12 @@ export const GameCard = ({
                     <span>{reviews_count}</span>
                 </div>
             </div>
-            <div className='flex flex-wrap justify-center md:justify-between m-2 px-2'>
-                <div className='basis-1/2 text-xs md:text-sm lg:text-base'>Genres:</div>
-                <div className='basis-1/2 md:text-right border-t dark:border-gray-700 border-gray-300'>
-                    <span className='text-stone-900 dark:text-slate-400 text-xs'>
-                        {genres.map((genre) => genre.name).join(' | ')}
-                    </span>
-                </div>
-                <div className='basis-1/2 text-xs md:text-sm lg:text-base'>Release Date:</div>
-                <div className='basis-1/2 text-stone-900 dark:text-slate-400 text-xs md:text-right border-t dark:border-gray-700 border-gray-300'>
+            <div className='m-2 px-2 text-base truncate w-11/12'>
+                {genres.map((genre) => genre.name).join(' | ')}
+            </div>
+            <div className='flex flex-wrap justify-around lg:justify-between m-2 px-2 text-stone-900 dark:text-slate-400'>
+                <div className='basis-1/2 text-base lg:text-xl'>Released</div>
+                <div className='basis-1/2 text-base text-right text-slate-500 rounded'>
                     {released}
                 </div>
             </div>

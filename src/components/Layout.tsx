@@ -8,7 +8,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
                 <NavBar />
             </header>
             {/*<aside className='col-span-4 md:col-span-2 lg:col-span-3 p-4'>Aside Menu</aside>*/}
-            <main className='container mx-auto p-4 my-16'>{children}</main>
+            <main className='mx-4 md:mx-6 lg:mx-16 p-4 my-16'>{children}</main>
             <footer className='p-4 bottom-0 w-full'>
                 <span className='text-xl font-bold'>2023 © GAMEHUB, Behind The Games</span>
             </footer>

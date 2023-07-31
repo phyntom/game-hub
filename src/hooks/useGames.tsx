@@ -3,7 +3,7 @@ import { createApiService } from '../service/apiService'
 import { Game } from '../model'
 import { CanceledError } from 'axios'
 
-export function useGenres() {
+export function useGames() {
     const [games, setGames] = useState<Game[]>([])
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const [error, setError] = useState('')
