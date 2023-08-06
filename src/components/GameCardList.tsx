@@ -1,11 +1,15 @@
 import { useEffect, useState } from 'react'
 import { createApiService } from '../service/apiService'
 import { GameCard } from './GameCard'
-import { Game } from '../model'
+import { Game, Genre } from '../model'
 import { CanceledError } from 'axios'
 import { GameCardSkeleton } from './GameCardSkeleton'
 
-const GameCardList = () => {
+interface GameCardListProps {
+    selectedGenre: Genre | null
+}
+
+const GameCardList = ({ selectedGenre }: GameCardListProps) => {
     const [games, setGames] = useState<Game[]>([])
     const [isLoading, setIsLoading] = useState<boolean>(false)
 
@@ -13,7 +17,7 @@ const GameCardList = () => {
         const abort = new AbortController()
         setIsLoading(true)
         createApiService()
-            .getAll('games', abort.signal)
+            .getAll('games', abort.signal, { params: { genres: selectedGenre?.id } })
             .then((response) => {
                 setGames(response)
                 setIsLoading(false)
@@ -26,10 +30,14 @@ const GameCardList = () => {
         return () => {
             abort.abort()
         }
-    }, [])
+    }, [selectedGenre?.id])
 
     function renderCardSkeleton() {
-        return new Array(12).fill(0).map((index) => <GameCardSkeleton key={index} />)
+        const skeletons: number[] = new Array(12)
+        for (let i = 0; i < skeletons.length; i++) {
+            skeletons[i] = i
+        }
+        return skeletons.map((item) => <GameCardSkeleton key={item} />)
     }
     return (
         <div className='grid col-span-full md:grid-cols-3 lg:grid-cols-4 gap-4'>

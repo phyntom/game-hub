@@ -25,7 +25,7 @@ export const GameCard = ({
 }: GameCardProps) => {
     const platforms: Array<Platform> = parent_platforms?.map(({ platform }) => platform)
     return (
-        <div className='bg-white dark:bg-slate-800 rounded-2xl shadow-2xl overflow-hidden'>
+        <div className='bg-white dark:bg-slate-800 rounded-2xl shadow-2xl overflow-hidden md:text-xs'>
             <img
                 className='lg:h-60 md:h-48 w-full object-cover rounded-t-2xl'
                 src={getOptimizedImage(background_image)}
@@ -52,7 +52,7 @@ export const GameCard = ({
                 {genres.map((genre) => genre.name).join(' | ')}
             </div>
             <div className='flex flex-wrap justify-around lg:justify-between m-2 px-2 text-stone-900 dark:text-slate-400'>
-                <div className='basis-1/2 text-base lg:text-xl'>Released</div>
+                <div className='basis-1/2 text-base lg:text-xl'>Release date</div>
                 <div className='basis-1/2 text-base text-right text-slate-500 rounded'>
                     {released}
                 </div>

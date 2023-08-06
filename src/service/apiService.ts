@@ -1,4 +1,4 @@
-import { AxiosResponse } from 'axios'
+import { AxiosRequestConfig, AxiosResponse } from 'axios'
 import { axiosInstance } from './axiosInstance'
 import { Game } from '../model'
 
@@ -11,9 +11,14 @@ export interface RawgApiResponse<T> {
 
 export class ApiService<T> {
     constructor() {}
-    async getAll(endpoint: string, abortSignal: AbortSignal): Promise<T[]> {
+    async getAll(
+        endpoint: string,
+        abortSignal: AbortSignal,
+        config?: AxiosRequestConfig
+    ): Promise<T[]> {
         try {
             const response: AxiosResponse<RawgApiResponse<T>> = await axiosInstance.get(endpoint, {
+                params: config?.params,
                 signal: abortSignal,
             })
             return response.data.results
