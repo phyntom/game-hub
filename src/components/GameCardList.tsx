@@ -1,23 +1,26 @@
 import { useEffect, useState } from 'react'
-import { createApiService } from '../service/apiService'
 import { GameCard } from './GameCard'
-import { Game, Genre } from '../model'
+import { Game, Genre, Platform } from '../model'
 import { CanceledError } from 'axios'
 import { GameCardSkeleton } from './GameCardSkeleton'
+import { gameService } from '../service'
 
 interface GameCardListProps {
     selectedGenre: Genre | null
+    selectedPlatform: Platform | null
 }
 
-const GameCardList = ({ selectedGenre }: GameCardListProps) => {
+const GameCardList = ({ selectedGenre, selectedPlatform }: GameCardListProps) => {
     const [games, setGames] = useState<Game[]>([])
     const [isLoading, setIsLoading] = useState<boolean>(false)
 
     useEffect(() => {
         const abort = new AbortController()
         setIsLoading(true)
-        createApiService()
-            .getAll('games', abort.signal, { params: { genres: selectedGenre?.id } })
+        gameService
+            .getAll('games', abort.signal, {
+                params: { genres: selectedGenre?.id, parent_platforms: selectedPlatform?.id },
+            })
             .then((response) => {
                 setGames(response)
                 setIsLoading(false)
@@ -30,7 +33,7 @@ const GameCardList = ({ selectedGenre }: GameCardListProps) => {
         return () => {
             abort.abort()
         }
-    }, [selectedGenre?.id])
+    }, [selectedGenre?.id, selectedPlatform?.id])
 
     function renderCardSkeleton() {
         const skeletons: number[] = new Array(12)

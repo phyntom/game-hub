@@ -7,13 +7,20 @@ import { useTheme } from './ThemeProvider'
 interface GenreListProps {
     // eslint-disable-next-line no-unused-vars
     onItemSelect: (genre: Genre) => void
+    selectedGenre: Genre | null
 }
 //
 
-const GenreList = ({ onItemSelect }: GenreListProps) => {
-    const { genres, isLoading } = useGenres()
+const GenreList = ({ onItemSelect, selectedGenre }: GenreListProps) => {
+    const { genres, isLoading, error } = useGenres()
     const { theme } = useTheme()
     const color: string = theme === 'light' ? '#94a3b8' : '#f8fafc'
+    const highLighted = (genre: Genre) => {
+        return selectedGenre?.id === genre.id ? ' text-gray-400' : ''
+    }
+    if (error) {
+        return <></>
+    }
     return (
         <div className='dark:text-slate-500 p-0 m-0 text-slate-800'>
             <div className='grid grid-cols-3 md:grid-cols-1'>
@@ -22,7 +29,10 @@ const GenreList = ({ onItemSelect }: GenreListProps) => {
                     <div
                         key={genre.id}
                         onClick={() => onItemSelect(genre)}
-                        className='flex justify-around items-center mx-2 gap-2 py-2 cursor-pointer'
+                        className={
+                            'flex justify-around items-center mx-2 gap-2 py-2 cursor-pointer' +
+                            highLighted(genre)
+                        }
                     >
                         <img
                             className='h-14 w-14 object-cover rounded-lg'

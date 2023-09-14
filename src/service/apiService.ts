@@ -1,6 +1,5 @@
 import { AxiosRequestConfig, AxiosResponse } from 'axios'
 import { axiosInstance } from './axiosInstance'
-import { Game } from '../model'
 
 export interface RawgApiResponse<T> {
     count: number
@@ -27,9 +26,15 @@ export class ApiService<T> {
             throw err
         }
     }
-    async getOne(endpoint: string, id: string): Promise<T | undefined> {
+    async getOne(
+        endpoint: string,
+        id: string,
+        config?: AxiosRequestConfig
+    ): Promise<T | undefined> {
         try {
-            const response: AxiosResponse<T> = await axiosInstance.get(`${endpoint}/${id}`)
+            const response: AxiosResponse<T> = await axiosInstance.get(`${endpoint}/${id}`, {
+                params: config?.params,
+            })
             return response.data
         } catch (err) {
             console.error(err)
@@ -37,5 +42,3 @@ export class ApiService<T> {
         }
     }
 }
-
-export const createApiService = () => new ApiService<Game>()

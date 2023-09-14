@@ -1,16 +1,17 @@
 import { useEffect, useState } from 'react'
-import { createApiService } from '../service/apiService'
 import { Genre } from '../model'
 import { CanceledError } from 'axios'
+import { genreService } from '../service'
 
 export function useGenres() {
     const [genres, setGenres] = useState<Genre[]>([])
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const [error, setError] = useState('')
+
     useEffect(() => {
         const abortController = new AbortController()
         setIsLoading(true)
-        createApiService()
+        genreService
             .getAll('/genres', abortController.signal)
             .then((response) => {
                 setGenres(response)

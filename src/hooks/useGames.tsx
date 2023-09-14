@@ -1,16 +1,17 @@
 import { useEffect, useState } from 'react'
-import { createApiService } from '../service/apiService'
 import { Game } from '../model'
 import { CanceledError } from 'axios'
+import { gameService } from '../service'
 
 export function useGames() {
     const [games, setGames] = useState<Game[]>([])
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const [error, setError] = useState('')
+
     useEffect(() => {
         const abortController = new AbortController()
         setIsLoading(true)
-        createApiService()
+        gameService
             .getAll('/games', abortController.signal)
             .then((response) => {
                 setGames(response)
