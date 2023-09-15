@@ -2,17 +2,18 @@ import clsx from 'clsx'
 import log from '../assets/logo.webp'
 import { BiMoon, BiSun } from 'react-icons/bi'
 import { useTheme } from './ThemeProvider'
+import SearchBox from './SearchBox'
 
 const NavBar = () => {
     const navBarContainer = getNavBarContainerClassName()
-    const { searchbox, logo } = getDefaultClassName()
+    const { logo } = getDefaultClassName()
     const { theme, toggleTheme } = useTheme()
     return (
         <div className={navBarContainer}>
             <a href='#'>
                 <img src={log} alt='website logo image' className={logo} />
             </a>
-            <input type='text' className={searchbox} placeholder='Search ...' />
+            <SearchBox />
             <div
                 onClick={() => {
                     toggleTheme()
