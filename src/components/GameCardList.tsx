@@ -22,6 +22,7 @@ const GameCardList = ({ gameQuery }: GameCardListProps) => {
                 params: {
                     genres: gameQuery?.genre?.id,
                     parent_platforms: gameQuery?.platform?.id,
+                    ordering: gameQuery.sortOrder,
                 },
             })
             .then((response) => {
@@ -36,7 +37,7 @@ const GameCardList = ({ gameQuery }: GameCardListProps) => {
         return () => {
             abort.abort()
         }
-    }, [gameQuery?.genre?.id, gameQuery?.platform?.id])
+    }, [gameQuery])
 
     function renderCardSkeleton() {
         const skeletons: number[] = new Array(12)

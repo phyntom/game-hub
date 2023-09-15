@@ -6,19 +6,38 @@ import {
     SelectValue,
 } from '@/components/ui/select'
 
-const SortSelector = () => {
+type SortSelectorProps = {
+    onItemSelect: (sortOrder: string) => void
+}
+
+const SortSelector = ({ onItemSelect }: SortSelectorProps) => {
+    // create an array of object sort order with
+    // key as the value and value as the label
+    const sortOptions = [
+        { value: '', label: 'Relevance' },
+        { value: 'name', label: 'Name' },
+        { value: '-added', label: 'Date added' },
+        { value: '-released', label: 'Release date' },
+        { value: '-metacritic', label: 'Popularity' },
+        { value: '-rating', label: 'Average rating' },
+    ]
+
     return (
-        <Select>
+        <Select
+            //value={sortOptions[0].value}
+            onValueChange={(value) => {
+                onItemSelect(value)
+            }}
+        >
             <SelectTrigger className='w-40'>
                 <SelectValue placeholder='Sort by' />
             </SelectTrigger>
             <SelectContent>
-                <SelectItem value='relevance'>Relevance</SelectItem>
-                <SelectItem value='date'>Date added</SelectItem>
-                <SelectItem value='name'>Name</SelectItem>
-                <SelectItem value='release_date'>Release date</SelectItem>
-                <SelectItem value='popularity'>Popularity</SelectItem>
-                <SelectItem value='rating'>Average rating</SelectItem>
+                {sortOptions.map((item) => (
+                    <SelectItem key={item.value} value={item.value}>
+                        {item.label}
+                    </SelectItem>
+                ))}
             </SelectContent>
         </Select>
     )

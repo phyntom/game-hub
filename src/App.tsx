@@ -11,6 +11,7 @@ const GenreListLazy = lazy(() => import('./components/GenreList'))
 export interface GameQuery {
     genre: Genre | null
     platform: Platform | null
+    sortOrder: string | ''
 }
 
 function App() {
@@ -33,7 +34,11 @@ function App() {
                                 setGameQuery({ ...gameQuery, platform })
                             }}
                         />
-                        <SortSelector />
+                        <SortSelector
+                            onItemSelect={(sortOrder: string) => {
+                                setGameQuery({ ...gameQuery, sortOrder })
+                            }}
+                        />
                     </div>
                     <GameCardLazy gameQuery={gameQuery} />
                 </div>
