@@ -12,7 +12,7 @@ const NavBar = () => {
             <a href='#'>
                 <img src={log} alt='website logo image' className={logo} />
             </a>
-            <input type='text' className={searchbox} placeholder='Search 84,569 games' />
+            <input type='text' className={searchbox} placeholder='Search ...' />
             <div
                 onClick={() => {
                     toggleTheme()

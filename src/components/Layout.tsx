@@ -1,5 +1,6 @@
 import { ReactNode } from 'react'
 import NavBar from './NavBar'
+import Footer from './Footer'
 
 const Layout = ({ children }: { children: ReactNode }) => {
     return (
@@ -8,9 +9,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
                 <NavBar />
             </header>
             <main className='mx-2 md:mx-4 lg:mx-16 p-2 my-16'>{children}</main>
-            <footer className='p-4 bottom-0 w-full'>
-                <span className='text-xl font-bold'>2023 © GAMEHUB, Behind The Games</span>
-            </footer>
+            <Footer />
         </div>
     )
 }

@@ -7,31 +7,31 @@ import { PlatformSelector } from './components/PlatformSelector'
 const GameCardLazy = lazy(() => import('./components/GameCardList'))
 const GenreListLazy = lazy(() => import('./components/GenreList'))
 
+export interface GameQuery {
+    genre: Genre | null
+    platform: Platform | null
+}
+
 function App() {
-    const [selectedGenre, setSelectedGenre] = useState<Genre | null>(null)
-    const [selectedPlatform, setSelectedPlatform] = useState<Platform | null>(null)
+    const [gameQuery, setGameQuery] = useState<GameQuery>({} as GameQuery)
     return (
         <Layout>
             <div className='grid col-span-1 md:grid-cols-6 lg:grid-cols-8 gap-2'>
                 <div className='md:col-span-1 lg:col-span-1'>
                     <GenreListLazy
                         onItemSelect={(genre: Genre) => {
-                            setSelectedGenre(genre)
+                            setGameQuery({ ...gameQuery, genre })
                         }}
-                        selectedGenre={selectedGenre}
+                        selectedGenre={gameQuery.genre}
                     />
                 </div>
                 <div className='md:col-span-5 lg:col-span-7'>
                     <PlatformSelector
-                        currentPlatform={selectedPlatform}
                         onItemSelect={(platform: Platform) => {
-                            setSelectedPlatform(platform)
+                            setGameQuery({ ...gameQuery, platform })
                         }}
                     />
-                    <GameCardLazy
-                        selectedPlatform={selectedPlatform}
-                        selectedGenre={selectedGenre}
-                    />
+                    <GameCardLazy gameQuery={gameQuery} />
                 </div>
             </div>
         </Layout>

@@ -1,16 +1,16 @@
 import { useEffect, useState } from 'react'
 import { GameCard } from './GameCard'
-import { Game, Genre, Platform } from '../model'
+import { Game } from '../model'
 import { CanceledError } from 'axios'
 import { GameCardSkeleton } from './GameCardSkeleton'
 import { gameService } from '../service'
+import { GameQuery } from '@/App'
 
 interface GameCardListProps {
-    selectedGenre: Genre | null
-    selectedPlatform: Platform | null
+    gameQuery: GameQuery
 }
 
-const GameCardList = ({ selectedGenre, selectedPlatform }: GameCardListProps) => {
+const GameCardList = ({ gameQuery }: GameCardListProps) => {
     const [games, setGames] = useState<Game[]>([])
     const [isLoading, setIsLoading] = useState<boolean>(false)
 
@@ -19,7 +19,10 @@ const GameCardList = ({ selectedGenre, selectedPlatform }: GameCardListProps) =>
         setIsLoading(true)
         gameService
             .getAll('games', abort.signal, {
-                params: { genres: selectedGenre?.id, parent_platforms: selectedPlatform?.id },
+                params: {
+                    genres: gameQuery?.genre?.id,
+                    parent_platforms: gameQuery?.platform?.id,
+                },
             })
             .then((response) => {
                 setGames(response)
@@ -33,7 +36,7 @@ const GameCardList = ({ selectedGenre, selectedPlatform }: GameCardListProps) =>
         return () => {
             abort.abort()
         }
-    }, [selectedGenre?.id, selectedPlatform?.id])
+    }, [gameQuery?.genre?.id, gameQuery?.platform?.id])
 
     function renderCardSkeleton() {
         const skeletons: number[] = new Array(12)
