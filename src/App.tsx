@@ -3,6 +3,7 @@ import './App.css'
 import Layout from './components/Layout'
 import { Genre, Platform } from './model'
 import { PlatformSelector } from './components/PlatformSelector'
+import SortSelector from './components/SortSelector'
 
 const GameCardLazy = lazy(() => import('./components/GameCardList'))
 const GenreListLazy = lazy(() => import('./components/GenreList'))
@@ -26,11 +27,14 @@ function App() {
                     />
                 </div>
                 <div className='md:col-span-5 lg:col-span-7'>
-                    <PlatformSelector
-                        onItemSelect={(platform: Platform) => {
-                            setGameQuery({ ...gameQuery, platform })
-                        }}
-                    />
+                    <div className='flex items-start justify-start gap-4'>
+                        <PlatformSelector
+                            onItemSelect={(platform: Platform) => {
+                                setGameQuery({ ...gameQuery, platform })
+                            }}
+                        />
+                        <SortSelector />
+                    </div>
                     <GameCardLazy gameQuery={gameQuery} />
                 </div>
             </div>
