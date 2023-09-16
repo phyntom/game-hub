@@ -4,7 +4,11 @@ import { BiMoon, BiSun } from 'react-icons/bi'
 import { useTheme } from './ThemeProvider'
 import SearchBox from './SearchBox'
 
-const NavBar = () => {
+type NavBarProps = {
+    onSearch: (searchText: string) => void
+}
+
+const NavBar = ({ onSearch }: NavBarProps) => {
     const navBarContainer = getNavBarContainerClassName()
     const { logo } = getDefaultClassName()
     const { theme, toggleTheme } = useTheme()
@@ -13,7 +17,7 @@ const NavBar = () => {
             <a href='#'>
                 <img src={log} alt='website logo image' className={logo} />
             </a>
-            <SearchBox />
+            <SearchBox onSearch={onSearch} />
             <div
                 onClick={() => {
                     toggleTheme()
@@ -32,7 +36,7 @@ const NavBar = () => {
 export default NavBar
 
 const getNavBarContainerClassName = () => {
-    return clsx('flex justify-between items-center gap-4')
+    return clsx('flex justify-between items-start gap-4')
 }
 
 const getDefaultClassName = () => {

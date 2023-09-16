@@ -24,7 +24,6 @@ const SortSelector = ({ onItemSelect }: SortSelectorProps) => {
 
     return (
         <Select
-            //value={sortOptions[0].value}
             onValueChange={(value) => {
                 onItemSelect(value)
             }}

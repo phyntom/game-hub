@@ -23,6 +23,7 @@ const GameCardList = ({ gameQuery }: GameCardListProps) => {
                     genres: gameQuery?.genre?.id,
                     parent_platforms: gameQuery?.platform?.id,
                     ordering: gameQuery.sortOrder,
+                    search: gameQuery.searchText,
                 },
             })
             .then((response) => {
