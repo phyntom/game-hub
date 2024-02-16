@@ -35,4 +35,4 @@ Gamehub project is game discovery web app that helps you find new and interestin
 
 ### Landing page
 
-![image](https://drive.google.com/open?id=14ep0RaqIQbJfIhz9Ky-gEYkru5WYpZWO&usp=drive_fs)
+![image](https://drive.google.com/file/d/14ep0RaqIQbJfIhz9Ky-gEYkru5WYpZWO/view?usp=sharing)
