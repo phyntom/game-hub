@@ -33,12 +33,10 @@ Gamehub project is game discovery web app that helps you find new and interestin
 
 ## App Screenshots
 
-### Landing pages
-
-### Light Mode theme
+> Light Mode theme
 
 ![image](https://drive.google.com/uc?export=view&id=14hS2V53j3WF61LpqVciJEs1HjFADJtO_)
 
-### Dark Mode theme
+> Dark Mode theme
 
 ![image](https://drive.google.com/uc?export=view&id=14jjjIa7uR-Tk78MYBwD2jzkYHU2cekjc)
