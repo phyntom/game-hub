@@ -40,3 +40,7 @@ Gamehub project is game discovery web app that helps you find new and interestin
 > Dark Mode theme
 
 ![image](https://drive.google.com/uc?export=view&id=14jjjIa7uR-Tk78MYBwD2jzkYHU2cekjc)
+
+> Responsive Mode
+
+![image](https://drive.google.com/uc?export=view&id=14l0TVkFrTPvYzxtA8lw10ZkjaXVs0ic7)
