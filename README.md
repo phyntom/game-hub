@@ -41,6 +41,10 @@ Gamehub project is game discovery web app that helps you find new and interestin
 
 ![image](https://drive.google.com/uc?export=view&id=14jjjIa7uR-Tk78MYBwD2jzkYHU2cekjc)
 
-> Responsive Mode
+> Responsive Mode Mobile
 
 ![image](https://drive.google.com/uc?export=view&id=14l0TVkFrTPvYzxtA8lw10ZkjaXVs0ic7)
+
+> Responsive Mode Tablet
+
+![image](https://drive.google.com/uc?export=view&id=14nt5CJ5jRe0h0Navc9J8K37zjFmgDAiB)
