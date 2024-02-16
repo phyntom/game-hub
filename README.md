@@ -30,3 +30,9 @@ Gamehub project is game discovery web app that helps you find new and interestin
     -   Website: <https://zod.dev/>
 -   **Lucide-React**: Lucide-React is an open-source icon library specifically designed for use within React applications
     -   Website: <https://lucide.dev/>
+
+## App Screenshots
+
+### Landing page
+
+![image](https://drive.google.com/open?id=14ep0RaqIQbJfIhz9Ky-gEYkru5WYpZWO&usp=drive_fs)
