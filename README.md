@@ -9,8 +9,9 @@ Gamehub project is game discovery web app that helps you find new and interestin
 1. Clone this repository to your local machine.
 2. Run `npm install` to install the required dependencies.
 3. Get a RAWG API key at <https://rawg.io/apidocs>. You'll have to create an account first.
-4. Add the API key to src/services/api-client.ts
-5. Run npm run dev to start the web server.
+4. Add the API key to local .env with name of `VITE_API_KEY`
+5. Make sure this .env is ignored by git by checking in .gitignore
+6. Run npm run dev to start the web server.
 
 ## Tech Used
 
