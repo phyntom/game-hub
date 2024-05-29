@@ -1,65 +1,44 @@
-import { lazy, useState } from 'react'
+import {
+    Route,
+    RouterProvider,
+    createBrowserRouter,
+    createRoutesFromElements,
+} from 'react-router-dom'
 import './App.css'
-import NavBar from '@/components/NavBar'
-import Layout from './components/Layout'
-import { Genre, Platform } from './model'
-import { PlatformSelector } from './components/PlatformSelector'
-import SortSelector from './components/SortSelector'
-import Footer from '@/components/Footer'
+import MainLayout from './pages/MainLayout'
+import ThemeProvider from './components/ThemeContext'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { lazy } from 'react'
 
-const GameCardLazy = lazy(() => import('./components/GameCardList'))
-const GenreListLazy = lazy(() => import('./components/GenreList'))
+const queryClient = new QueryClient({
+    defaultOptions: {
+        queries: {
+            refetchOnWindowFocus: false,
+            staleTime: 1000 * 60 * 5,
+        },
+    },
+})
 
-export type GameQuery = {
-    genre: Genre | null
-    platform: Platform | null
-    sortOrder: string | ''
-    searchText: string
-}
+const HomePageLazy = lazy(() => import('./pages/HomePage'))
+const WishListPageLazy = lazy(() => import('./pages/WishListPage'))
+const GamePageLazy = lazy(() => import('./pages/GamePage'))
 
+const router = createBrowserRouter(
+    createRoutesFromElements(
+        <Route element={<MainLayout />}>
+            <Route path='/' element={<HomePageLazy />} />
+            <Route path='/wishlist' element={<WishListPageLazy />} />
+            <Route path='/game/:id' element={<GamePageLazy />} />
+        </Route>
+    )
+)
 function App() {
-    const [gameQuery, setGameQuery] = useState<GameQuery>({} as GameQuery)
     return (
-        <Layout>
-            <div className='grid grid-rows-[auto,1fr,auto] gap-2 min-h-screen text-slate-700 dark:bg-slate-900 font-poppins dark:text-neutral-200'>
-                <header className='p-2'>
-                    <NavBar
-                        onSearch={(searchText: string) => {
-                            setGameQuery({ ...gameQuery, searchText })
-                        }}
-                    />
-                </header>
-                <div className='grid col-span-1 md:grid-cols-6 lg:grid-cols-8 gap-2'>
-                    <div className='md:col-span-1 lg:col-span-1'>
-                        <GenreListLazy
-                            onItemSelect={(genre: Genre) => {
-                                setGameQuery({ ...gameQuery, genre })
-                            }}
-                            selectedGenre={gameQuery.genre}
-                        />
-                    </div>
-                    <div className='md:col-span-5 lg:col-span-7'>
-                        <div className='flex items-start justify-start gap-4'>
-                            <PlatformSelector
-                                onItemSelect={(platform: Platform) => {
-                                    setGameQuery({ ...gameQuery, platform })
-                                }}
-                            />
-                            <SortSelector
-                                onItemSelect={(sortOrder: string) => {
-                                    setGameQuery({
-                                        ...gameQuery,
-                                        sortOrder,
-                                    })
-                                }}
-                            />
-                        </div>
-                        <GameCardLazy gameQuery={gameQuery} />
-                    </div>
-                </div>
-                <Footer />
-            </div>
-        </Layout>
+        <QueryClientProvider client={queryClient}>
+            <ThemeProvider defaultTheme='dark' storageKey='custom-theme'>
+                <RouterProvider router={router} />
+            </ThemeProvider>
+        </QueryClientProvider>
     )
 }
 

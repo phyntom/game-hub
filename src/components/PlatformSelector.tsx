@@ -1,39 +1,43 @@
-import { usePlatforms } from '@/hooks/usePlatforms'
-import { Platform } from '../model'
+import useFetchPlatforms from '@/hooks/useFetchPlatforms'
+import {
+    Select,
+    SelectContent,
+    SelectGroup,
+    SelectItem,
+    SelectLabel,
+    SelectTrigger,
+    SelectValue,
+} from './ui/select'
 
 interface PlatformSelectorProps {
-    onItemSelect: (platform: Platform) => void
+    onSelect: (value: string) => void
 }
 
-export function PlatformSelector({ onItemSelect }: PlatformSelectorProps) {
-    const { platforms } = usePlatforms()
-
-    const onItemChange = (selectedItem: number) => {
-        const selectedPlatform = platforms?.find((item) => item.id === selectedItem)
-        if (selectedPlatform) {
-            onItemSelect(selectedPlatform)
-        }
-    }
-
+function PlatformSelector({ onSelect }: PlatformSelectorProps) {
+    const { isLoading, data } = useFetchPlatforms()
     return (
-        <label>
-            <select
-                className='my-2 p-2 dark:bg-slate-800 rounded-md'
-                onChange={(e) => {
-                    onItemChange(parseInt(e.target.value))
-                }}
-            >
-                <option value=''>Platforms</option>
-                {platforms?.map((platform) => (
-                    <option
-                        key={platform.slug}
-                        className='checked:bg-slate-800'
-                        value={platform.id}
-                    >
-                        {platform.name}
-                    </option>
-                ))}
-            </select>
-        </label>
+        <Select
+            onValueChange={(value) => {
+                onSelect(value)
+            }}
+        >
+            <SelectTrigger className='w-[220px]'>
+                {isLoading && <SelectValue placeholder='Loading ...' />}
+                {data && <SelectValue placeholder='Select Platform' />}
+            </SelectTrigger>
+            <SelectContent>
+                <SelectGroup>
+                    {data && <SelectLabel>Platform</SelectLabel>}
+                    <SelectItem value='0'>All</SelectItem>
+                    {data?.map((platform) => (
+                        <SelectItem key={platform.slug} value={platform.id.toString()}>
+                            {platform.name}
+                        </SelectItem>
+                    ))}
+                </SelectGroup>
+            </SelectContent>
+        </Select>
     )
 }
+
+export default PlatformSelector

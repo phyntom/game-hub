@@ -3,15 +3,19 @@ import { Platform } from './Platform'
 import { Rating } from './Rating'
 
 export interface Game {
-    id: string
+    id: number
     slug: string
     name: string
-    released: string
+    released: Date
     tba: boolean
     background_image: string
     rating: number
     reviews_count: number
     ratings: Rating[]
     genres: Genre[]
-    parent_platforms: Array<{ platform: Platform }>
+    parent_platforms: [
+        {
+            platform: Platform
+        }
+    ]
 }

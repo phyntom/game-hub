@@ -1,51 +1,30 @@
-# Game Hub Project
+# React + TypeScript + Vite
 
-## Introduction
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Gamehub project is game discovery web app that helps you find new and interesting games that you can play. You can search fir games by platform,genre and more.
+Currently, two official plugins are available:
 
-## Getting started
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-1. Clone this repository to your local machine.
-2. Run `npm install` to install the required dependencies.
-3. Get a RAWG API key at <https://rawg.io/apidocs>. You'll have to create an account first.
-4. Add the API key to local .env with name of `VITE_API_KEY`
-5. Make sure this .env is ignored by git by checking in .gitignore
-6. Run npm run dev to start the web server.
+## Expanding the ESLint configuration
 
-## Tech Used
+If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
 
--   **React 18**: Javascript library used to create the whole APP
-    -   Website: <https://reactjs.org/>
-    -   GitHub: <https://github.com/facebook/react>
--   **Vite**: Build tool that aims to provide a faster and leaner development experience for modern web projects
-    -   Website: <https://reactjs.org/>
-    -   GitHub: <https://github.com/facebook/react>
--   **Tailwindcss**: A utility-first CSS framework that allows you to rapidly build custom designs using pre-built classes
-    -   Website: <https://tailwindcss.com/>
-    -   GitHub: <https://github.com/tailwindcss/tailwindcss>
--   **shadcn**: A collection of UI components, themes and templates built on top of Tailwind CSS and other popular libraries
-    -   Website: <https://ui.shadcn.com/>
-    -   GitHub: <https://github.com/shadcn>
--   **Zod**: TypeScript-first schema validation library, meaning it helps ensure the integrity and type safety of your data within your TypeScript applications
-    -   Website: <https://zod.dev/>
--   **Lucide-React**: Lucide-React is an open-source icon library specifically designed for use within React applications
-    -   Website: <https://lucide.dev/>
+- Configure the top-level `parserOptions` property like this:
 
-## App Screenshots
+```js
+export default {
+  // other rules...
+  parserOptions: {
+    ecmaVersion: 'latest',
+    sourceType: 'module',
+    project: ['./tsconfig.json', './tsconfig.node.json'],
+    tsconfigRootDir: __dirname,
+  },
+}
+```
 
-> Light Mode theme
-
-![image](https://drive.google.com/uc?export=view&id=14hS2V53j3WF61LpqVciJEs1HjFADJtO_)
-
-> Dark Mode theme
-
-![image](https://drive.google.com/uc?export=view&id=14jjjIa7uR-Tk78MYBwD2jzkYHU2cekjc)
-
-> Responsive Mode Mobile
-
-![image](https://drive.google.com/uc?export=view&id=14l0TVkFrTPvYzxtA8lw10ZkjaXVs0ic7)
-
-> Responsive Mode Tablet
-
-![image](https://drive.google.com/uc?export=view&id=14nt5CJ5jRe0h0Navc9J8K37zjFmgDAiB)
+- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
+- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
+- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list

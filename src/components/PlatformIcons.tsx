@@ -1,50 +1,37 @@
-import { FaPlaystation, FaXbox, FaWindows, FaAndroid, FaLinux, FaApple } from 'react-icons/fa'
+import { Platform } from '@/types'
+import { ReactNode } from 'react'
+import { BsGlobe } from 'react-icons/bs'
+import { FaAndroid, FaApple, FaLinux, FaPlaystation, FaWindows, FaXbox } from 'react-icons/fa'
 import { MdPhoneIphone } from 'react-icons/md'
 import { SiNintendo } from 'react-icons/si'
-import { BsGlobe } from 'react-icons/bs'
-import { Platform } from '../model'
-import { ReactNode } from 'react'
 
-interface Props {
+type PlatformIconsProps = {
     platforms: Platform[]
 }
 
-const IconsMap: Record<string, { icon: ReactNode }> = {
-    pc: {
-        icon: <FaWindows />,
-    },
-    xbox: {
-        icon: <FaXbox />,
-    },
-    android: {
-        icon: <FaAndroid />,
-    },
-    linux: {
-        icon: <FaLinux />,
-    },
-    playstation: {
-        icon: <FaPlaystation />,
-    },
-    nintendo: {
-        icon: <SiNintendo />,
-    },
-    ios: {
-        icon: <MdPhoneIphone />,
-    },
-    mac: {
-        icon: <FaApple />,
-    },
-    web: {
-        icon: <BsGlobe />,
-    },
-}
+const iconsMap = new Map<string, { icon: ReactNode }>()
 
-export const PlatformIcons = ({ platforms }: Props) => {
+// Set each key-value pair individually using the set method
+iconsMap.set('pc', { icon: <FaWindows /> })
+iconsMap.set('xbox', { icon: <FaXbox /> })
+iconsMap.set('android', { icon: <FaAndroid /> })
+iconsMap.set('linux', { icon: <FaLinux /> })
+iconsMap.set('playstation', { icon: <FaPlaystation /> })
+iconsMap.set('nintendo', { icon: <SiNintendo /> })
+iconsMap.set('ios', { icon: <MdPhoneIphone /> })
+iconsMap.set('mac', { icon: <FaApple /> })
+iconsMap.set('web', { icon: <BsGlobe /> })
+
+function PlatformIcons({ platforms }: PlatformIconsProps) {
     return (
-        <>
-            {platforms?.map((platform) => {
-                return <div key={platform.id}>{IconsMap[`${platform.slug}`]?.icon}</div>
+        <div className='flex gap-2'>
+            {platforms?.map((platform: Platform) => {
+                if (iconsMap.get(platform.slug)) {
+                    return <span key={platform.slug}>{iconsMap?.get(platform.slug)?.icon}</span>
+                }
             })}
-        </>
+        </div>
     )
 }
+
+export default PlatformIcons

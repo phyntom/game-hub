@@ -1,64 +1,43 @@
-import { MdOutlineReviews } from 'react-icons/md'
-import { Game, Platform } from '../model'
-import { PlatformIcons } from './PlatformIcons'
-import { getOptimizedImage } from '../utils/getOptimizedImage'
+import { Game } from '@/types'
+import PlatformIcons from './PlatformIcons'
+import { Card, CardContent, CardFooter, CardTitle } from './ui/card'
+interface GameCardProps {
+    game: Game
+}
+function GameCard({ game }: GameCardProps) {
+    const platforms = game?.parent_platforms?.map((parent_platform) => parent_platform.platform)
 
-type GameCardProps = Pick<
-    Game,
-    | 'name'
-    | 'genres'
-    | 'background_image'
-    | 'rating'
-    | 'reviews_count'
-    | 'released'
-    | 'parent_platforms'
->
-
-export const GameCard = ({
-    name,
-    genres,
-    background_image,
-    rating,
-    reviews_count,
-    released,
-    parent_platforms,
-}: GameCardProps) => {
-    const platforms: Array<Platform> = parent_platforms?.map(({ platform }) => platform)
     return (
-        <div className='bg-white dark:bg-slate-800 rounded-2xl shadow-2xl overflow-hidden md:text-xs'>
-            <img
-                className='lg:h-60 md:h-48 w-full object-cover rounded-t-2xl'
-                src={getOptimizedImage(background_image)}
-                alt='cover image'
-            />
-            <div className='text-slate-900 dark:text-white m-2 px-2'>
-                <h1 className='text-lg font-medium md:text-lg md:font-semibold lg:text-xl lg:font-bold tracking-tight'>
-                    {name}
-                </h1>
+        <Card className='w-[350px]'>
+            <div className='overflow-hidden rounded-md'>
+                <img
+                    src={game.background_image}
+                    alt={game.name}
+                    className='object-cover h-52 w-[100%]'
+                />
             </div>
-            <div className='flex m-2 px-2 gap-1 text-slate-500 dark:text-gray-500'>
+            <CardContent className='mt-2'>
+                <CardTitle className='text-lg'>{game.name}</CardTitle>
                 <PlatformIcons platforms={platforms} />
-            </div>
-            <div className='flex justify-between m-2 px-2'>
-                <span>{rating}</span>
-                <div className='flex items-center'>
-                    <span className='mr-1'>
-                        <MdOutlineReviews />
+            </CardContent>
+            <CardFooter className='flex flex-col'>
+                <div className='flex justify-between w-[100%]'>
+                    <span>Rating</span>
+                    <span className='font-bold text-md text-muted-foreground'>{game.rating}</span>
+                </div>
+                <div className='flex justify-between w-[100%]'>
+                    <span>Released on</span>
+                    <span className='text-md text-muted-foreground'>
+                        {new Date(game.released).toLocaleDateString('en-US', {
+                            year: 'numeric',
+                            month: 'short',
+                            day: 'numeric',
+                        })}
                     </span>
-                    <span>{reviews_count}</span>
                 </div>
-            </div>
-            <div className='m-2 px-2 text-base truncate w-11/12'>
-                {genres.map((genre) => genre.name).join(' | ')}
-            </div>
-            <div className='flex flex-wrap justify-around lg:justify-between m-2 px-2 text-stone-900 dark:text-slate-400'>
-                <div className='basis-1/2 text-base lg:text-xl'>Release date</div>
-                <div className='basis-1/2 text-base text-right text-slate-500 rounded'>
-                    {released}
-                </div>
-            </div>
-        </div>
+            </CardFooter>
+        </Card>
     )
 }
 
-//src = 'https://dummyimage.com/720x400';
+export default GameCard
